@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+$green:#7fd344;
+
+
 body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url('src/assets/background.png');
@@ -9,4 +14,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+   font-family: 'Open Sans',
+   sans-serif;
 }
