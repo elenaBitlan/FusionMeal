@@ -17,10 +17,9 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  // public get currentUserValue(): IUser {
-  //   return this.currentUserSubject.value;
-  // }
-
+  isAuth() {
+    return this.currentUserSubject;
+  }
 
   login(username: string, password: string) {
     return this.http.post<any>(`/auth/login`, { username, password })
