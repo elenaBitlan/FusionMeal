@@ -5,7 +5,11 @@ import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
+<<<<<<< HEAD
   { path: 'signin', component: LoginComponent, canActivate: [AuthGuard] }
+=======
+  
+>>>>>>> origin/new_branch
 ];
 
 @NgModule({
