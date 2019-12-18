@@ -1,0 +1,14 @@
+.box {
+  width: 100vw;
+  height: 100vh;
+  &__form {
+    width: 25vw
+  }
+  &__btn {
+    border: green solid 1px;
+    &:hover {
+      background-color: green;
+      color:white;
+    }
+  }
+}
