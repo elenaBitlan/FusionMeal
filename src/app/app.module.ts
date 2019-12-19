@@ -1,25 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { apiProvider } from './interceptors/api.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    CarouselModule.forRoot(),
+
+
+
   ],
   providers: [
     AuthGuard,
     apiProvider,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,]
 })
 export class AppModule { }

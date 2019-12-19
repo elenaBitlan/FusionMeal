@@ -1,0 +1,11 @@
+<div class="container-fluid d-flex justify-content-center align-items-center carouselBox ">
+    <carousel [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset" [noWrap]="noWrap"
+        [interval]="false" [startFromIndex]="1" class="carouselBox__carousel">
+        <slide *ngFor="let slide of slides; let index=index" class="carouselBox__item">
+            <img [src]="slide.image" order="index" alt="image slide" style="display:block; width:100%;margin: 0px;">
+            <div class="carousel-caption">
+                <h4>Slide {{index}}</h4>
+            </div>
+        </slide>
+    </carousel>
+</div>

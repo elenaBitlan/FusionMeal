@@ -1,14 +1,31 @@
 .box {
+
   width: 100vw;
   height: 100vh;
+
   &__form {
-    width: 25vw
+    width: 25vw;
+
+
   }
+
+  &__input {
+
+    opacity: 50%;
+
+    &:hover {
+      opacity: 80%;
+      border: green solid 2px;
+
+    }
+  }
+
   &__btn {
     border: green solid 1px;
+
     &:hover {
       background-color: green;
-      color:white;
+      color: white;
     }
   }
 }
