@@ -6,8 +6,11 @@ import { AppComponent } from './app.component';
 import { apiProvider } from './interceptors/api.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
-import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,13 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     AppRoutingModule,
     NgbModule,
     CarouselModule.forRoot(),
-
-
-
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuard,
     apiProvider,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent,]
 })

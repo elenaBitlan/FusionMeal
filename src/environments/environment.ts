@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://meal.fusionworks.md/',
+  apiUrl: 'http://meal.fusionworks.md',
 };
 
 /*

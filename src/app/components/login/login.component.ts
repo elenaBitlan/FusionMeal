@@ -15,9 +15,11 @@ export class LoginComponent {
   ) { }
 
   login(loginForm) {
-    this.authService.login(loginForm.values.email, loginForm.values.password);
-    this.router.navigate(['']);
+    this.authService.login(loginForm.value.email, loginForm.value.password).subscribe((val) => {
+      console.log(val);
+      console.log(localStorage.getItem('currentUser'));
+      this.router.navigate(['']);
+    });
   }
-
 
 }
