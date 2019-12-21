@@ -5,10 +5,9 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 
 
 const routes: Routes = [
-  { path: '', component:CarouselComponent }
-
+  { path: 'login', component: LoginComponent },
+  { path: '', component: CarouselComponent },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
