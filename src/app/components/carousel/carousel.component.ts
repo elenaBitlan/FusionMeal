@@ -1,5 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+
+import { Component, ChangeDetectorRef, Inject, AfterViewInit } from '@angular/core';
 import { HostListener } from '@angular/core';
+
+
+
 
 @Component({
   selector: 'app-carousel',
@@ -7,9 +11,10 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 
-export class CarouselComponent implements OnInit {
 
-  itemsPerSlide = 5;
+export class CarouselComponent implements AfterViewInit {
+
+  itemsPerSlide;
   singleSlideOffset = false;
   noWrap = !false;
   width: any;
@@ -60,42 +65,37 @@ export class CarouselComponent implements OnInit {
       date: 'dd/mm/yyyy'
     }
   ];
+
   constructor(
     private cdr: ChangeDetectorRef,
+
   ) { }
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.width = event.target.innerWidth;
+
+  @HostListener('window:resize', ['$event.target'])
+  onResize(target) {
+    this.width = target.innerWidth;
+    console.log(target.innerWidth);
+
     if (this.width < 992) {
-      console.log(this.itemsPerSlide);
       this.itemsPerSlide = 1;
-      this.showCarusel = false;
-      this.cdr.detectChanges();
-      setTimeout(() => {
-        this.showCarusel = true;
-        this.cdr.detectChanges();
-      }, 0);
     } else {
-      console.log(this.itemsPerSlide);
       this.itemsPerSlide = 5;
-      this.showCarusel = false;
-      this.cdr.detectChanges();
-      setTimeout(() => {
-        this.showCarusel = true;
-        this.cdr.detectChanges();
-      }, 0);
     }
+    this.showCarusel = false;
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.showCarusel = true;
+      this.cdr.detectChanges();
+    }, 0);
   }
-  ngOnInit() {
-    //to do:make this thing work
-    // this.onResize(window.open);
-
+  ngAfterViewInit() {
+    this.onResize(window);
   }
-
 
 
 
 }
+
 
 
 

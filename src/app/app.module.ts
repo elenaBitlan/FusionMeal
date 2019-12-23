@@ -6,25 +6,30 @@ import { AppComponent } from './app.component';
 import { apiProvider } from './interceptors/api.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { AuthGuard } from './guards/auth.guard';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CarouselComponent
-
+    CarouselComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CarouselModule.forRoot(),
-    
-   
-    
+    FormsModule,
+     ReactiveFormsModule
+
+
   ],
   providers: [
+    AuthGuard,
     apiProvider,
   ],
   bootstrap: [AppComponent,]
