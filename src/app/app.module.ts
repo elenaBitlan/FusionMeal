@@ -10,6 +10,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
+import { OrderService } from './services/order.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationService } from './services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,13 +29,20 @@ import { FormComponent } from './components/form/form.component';
     NgbModule,
     CarouselModule.forRoot(),
     FormsModule,
-     ReactiveFormsModule
-
-
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuard,
+    AuthenticationService,
     apiProvider,
+    OrderService,
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent,]
 })

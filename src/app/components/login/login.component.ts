@@ -8,19 +8,25 @@ import { Router } from '@angular/router';
   styleUrls: ['login.component.scss']
 })
 export class LoginComponent {
-
+  
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    
   ) { }
 
   login(loginForm) {
     this.authService.login(loginForm.value.email, loginForm.value.password).subscribe((val) => {
       console.log(val);
+      this.authService.token = val.token;
+      localStorage.setItem('token', val.token);
       console.log(localStorage.getItem('currentUser'));
       this.router.navigate(['']);
     });
   }
+
+
+
 
 }
 

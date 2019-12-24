@@ -1,15 +1,17 @@
 <div class="container bg-primary formBox">
-    <form  (ngSubmit)="food(foodForm)"#foodForm="ngForm">
+    <div class="row d-flex " *ngFor="let days of currentWeek">
+        <form (ngSubmit)="food(foodForm)" #foodForm="ngForm">
 
-        <div class="form-group">
-            <label>First</label>
-            <input class="form-control" type="number" value="" id="">
-        </div>
+            <div class="form-group">
+                <label>First</label>
+                <input class="form-control" type="number" value="">
+            </div>
 
-        <div class="form-group ">
-            <label>Second</label>
-            <input class="form-control" type="number" value="" id="">
-        </div>
+            <div class="form-group ">
+                <label>Second</label>
+                <input class="form-control" type="number" value="">
+            </div>
 
-    </form>
+        </form>
+    </div>
 </div>

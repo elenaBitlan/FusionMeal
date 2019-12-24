@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpXsrfTokenExtractor, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IUser } from '../interfaces/user.interface';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -16,16 +17,18 @@ export class AuthenticationService {
       JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
-
+  token = null;
   isAuth() {
     return this.currentUserSubject;
   }
 
+
   login(username: string, password: string) {
     const token = null;
-    return this.http.post<any>(`api/auth/login`, { username, password, token })
+    return this.http.post<any>(`api/auth/login-mobile`, { username, password, token })
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
+       
         this.currentUserSubject.next(user);
         return user;
       }));
