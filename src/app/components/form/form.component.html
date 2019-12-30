@@ -1,17 +1,24 @@
-<div class="container bg-primary formBox">
-    <div class="row d-flex " *ngFor="let days of currentWeek">
-        <form (ngSubmit)="food(foodForm)" #foodForm="ngForm">
+<div *ngIf="myGroup">
+    <div class="container d-flex justify-content-between formBox text-light list-inline" [formGroup]="myGroup">
+        <div class="row " formArrayName="formArray">
+            <div class="text-light list-inline border d-flex align-items-end "
+                *ngFor="let day of arrayForm.controls;let i = index">
+                <div [formGroupName]="i">
 
-            <div class="form-group">
-                <label>First</label>
-                <input class="form-control" type="number" value="">
+
+                    <div class="form-group form-inline d-flex justify-content-between m-3 ">
+                        <label class="mx-2">First</label>
+                        <input formControlName="first" class="form-control col-3  rounded-pill" type="number">
+                    </div>
+
+                    <div class="form-group form-inline d-flex justify-content-between m-3 ">
+                        <label class="mx-2">Second</label>
+                        <input class="form-control col-3 rounded-pill" type="number" formControlName="second">
+                    </div>
+                    <button type="button" class="btn btn-lg btn-dark rounded-pill m-3" (click)="food(i)">Submit</button>
+
+                </div>
             </div>
-
-            <div class="form-group ">
-                <label>Second</label>
-                <input class="form-control" type="number" value="">
-            </div>
-
-        </form>
+        </div>
     </div>
 </div>

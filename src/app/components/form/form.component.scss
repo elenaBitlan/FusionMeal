@@ -1,4 +1,16 @@
 .formBox {
-  height: 50vh;
+ 
+  min-height: 50vh;
   width: 100vw;
+
+&__form{
+  
+  
+  display: inline;
+  
+ 
+}
+&__container{
+flex-direction: column;
+}
 }

@@ -16,6 +16,7 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<IUser>(
       JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+
   }
   token = null;
   isAuth() {
@@ -28,7 +29,6 @@ export class AuthenticationService {
     return this.http.post<any>(`api/auth/login-mobile`, { username, password, token })
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
-       
         this.currentUserSubject.next(user);
         return user;
       }));

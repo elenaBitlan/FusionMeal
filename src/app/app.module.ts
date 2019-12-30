@@ -15,6 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     apiProvider,
     OrderService,
     CookieService,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
