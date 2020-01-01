@@ -1,18 +1,11 @@
-
-.carouselBox{
-    width: 100vw;
-    height: 100vh;
-
-    &__carousel{
- height: 90vh;
- background-color: rgba(255, 255, 255, 0.299)
+.carouselBox {
+  width: 100vw;
+  height: 100vh;
 }
-    &__item
-    {
+.carousel {
+  height: 90vh;
 
-    margin: 3px;
-    margin-top: 2.5vh;
-    margin-bottom: 2.5vh;
-    
- 
-}}
+  &__card {
+    border-color: white;
+  }
+}

@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectorRef, Inject, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 
 
