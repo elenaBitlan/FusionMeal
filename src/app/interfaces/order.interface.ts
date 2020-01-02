@@ -4,15 +4,15 @@ export interface IOrder {
     order: {
         first: {
             value: number,
-            option: ""
+            option: '',
         },
         second: {
             value: number,
-            option: ""
-        }
+            option: '',
+        },
     }
     options: {
         first: [],
-        second: []
+        second: [],
     }
 }

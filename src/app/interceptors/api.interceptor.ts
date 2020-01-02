@@ -18,17 +18,12 @@ export class ApiInterceptor implements HttpInterceptor {
     if (request.url.startsWith('http')) {
       return next.handle(request);
     }
-
-
     const duplicatedRequest = request.clone({
       url: `${environment.apiUrl}/${request.url}`,
     });
 
     return next
       .handle(duplicatedRequest);
-    /*.pipe(
-      tap(data => console.log(data))
-    );*/
   }
 }
 

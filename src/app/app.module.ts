@@ -1,28 +1,25 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { apiProvider } from "./interceptors/api.interceptor";
-import { LoginComponent } from "./components/login/login.component";
-import { CarouselComponent } from "./components/carousel/carousel.component";
-import { AuthGuard } from "./guards/auth.guard";
-import { CarouselModule } from "ngx-bootstrap/carousel";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FormComponent } from "./components/form/form.component";
-import { OrderService } from "./services/order.service";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { AuthenticationService } from "./services/auth.service";
-import { CookieService } from "ngx-cookie-service";
-import { TokenInterceptor } from "./interceptors/token.interceptor";
-import { DatePipe } from "@angular/common";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormComponent } from './components/form/form.component';
+import { apiProvider } from './interceptors/api.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AuthGuard } from './guards/auth.guard';
+import { OrderService } from './services/order.service';
+import { AuthenticationService } from './services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CarouselComponent,
-    FormComponent
+    FormComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,21 +28,20 @@ import { DatePipe } from "@angular/common";
     CarouselModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     AuthGuard,
     AuthenticationService,
     apiProvider,
     OrderService,
-    CookieService,
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

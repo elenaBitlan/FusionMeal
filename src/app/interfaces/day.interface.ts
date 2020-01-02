@@ -5,17 +5,17 @@ export interface IDay {
     order: {
         first: {
             value: number,
-            option: string
+            option: string,
         },
         second: {
             value: number,
-            option: string
+            option: string,
         },
-        total: number
+        total: number,
     },
     options: {
         first: [],
-        second: []
+        second: [],
 
-    }
+    },
 }
