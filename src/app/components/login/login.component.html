@@ -1,13 +1,18 @@
-<div class="container bg-warning d-flex justify-content-center align-items-center box ">
-  <form class="box__form">
+<div class="container d-flex justify-content-center
+ align-items-center box text-white font-weight-normal ">
+  <form class="box__form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
     <div class="form-group ">
       <label for="InputEmail">Email address</label>
-      <input type="email" class="form-control form-control-lg rounded-pill" id="InputEmail">
+      <input name="email" type="email" ngModel required pattern="/.*@fusionworks.md$/"
+        class="form-control form-control-lg rounded-pill" id="InputEmail" />
     </div>
     <div class="form-group">
       <label for="InputPassword1">Password</label>
-      <input type="password" class="form-control form-control-lg rounded-pill" id="InputPassword1">
+      <input name="password" type="password" ngModel class="form-control form-control-lg rounded-pill"
+        id="InputPassword1" />
     </div>
-    <button type="submit" class="btn btn-lg btn-block rounded-pill box__btn">Submit</button>
+    <button type="submit" class="btn btn-lg btn-block rounded-pill box__btn">
+      Submit
+    </button>
   </form>
 </div>

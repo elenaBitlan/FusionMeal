@@ -1,0 +1,19 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+$green:#7fd344;
+
+
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('../assets/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans',
+    sans-serif;
+}
