@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { IUser } from '../interfaces/user.interface';
-
 @Injectable()
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<IUser>;
   public currentUser: Observable<IUser>;
-
+  public currentUserSubject: BehaviorSubject<IUser>;
+  public token = null;
   constructor(
-    private http: HttpClient,
+    public http: HttpClient,
   ) {
     this.currentUserSubject = new BehaviorSubject<IUser>(
       JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  isAuth() {
+  public isAuth() {
     return this.currentUserSubject;
   }
-
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     const token = null;
-    return this.http.post<any>(`api/auth/login`, { username, password, token })
-      .pipe(map(user => {
+    return this.http.post<any>(`api/auth/login-mobile`, { username, password, token })
+      .pipe(map((user) => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
       }));
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
