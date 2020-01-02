@@ -1,15 +1,16 @@
 import {
-  Component,
+  Component,   //order imports
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
   HostListener,
 } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { FormControl, FormGroup, FormArray } from '@angular/forms';
+
 import { OrderService } from '../../services/order.service';
 import { IDay } from 'app/interfaces/day.interface';
 import { IOrder } from 'app/interfaces/order.interface';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form',
@@ -18,7 +19,7 @@ import { DatePipe } from '@angular/common';
 })
 export class FormComponent implements OnInit, AfterViewInit {
   public day: IDay;
-  public thisCurrentWeek: IDay[];
+  public currentWeek: IDay[]; //this?
   public arrayForm: FormArray;
   public myGroup: FormGroup;
 
@@ -47,7 +48,6 @@ export class FormComponent implements OnInit, AfterViewInit {
     const first = this.arrayForm.controls[i].value.first;
     const second = this.arrayForm.controls[i].value.second;
     const date = this.arrayForm.controls[i].value.date;
-
     const id = this.arrayForm.controls[i].value.id;
     const formatedDate = new Date(date).getTime();
     const today = new Date().getTime();
@@ -89,7 +89,7 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.orderService.getCurrentWeek().subscribe((days: IDay[]) => {
-      this.thisCurrentWeek = days;
+      this.currentWeek = days;
 
       this.arrayForm = new FormArray(
         days.map((day, index) => {
@@ -116,6 +116,7 @@ export class FormComponent implements OnInit, AfterViewInit {
     } else {
       this.itemsPerSlide = 5;
     }
+
     this.showCarusel = false;
     this.cdr.detectChanges();
     setTimeout(() => {
@@ -123,6 +124,7 @@ export class FormComponent implements OnInit, AfterViewInit {
       this.cdr.detectChanges();
     }, 0);
   }
+
   public ngAfterViewInit() {
     this.onResize(window);
   }

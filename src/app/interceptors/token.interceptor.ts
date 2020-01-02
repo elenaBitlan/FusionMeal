@@ -4,10 +4,13 @@ import {
     HttpHandler,
     HttpEvent,
     HttpInterceptor,
+    HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 
-import { AuthenticationService } from '../services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
+
+import { AuthenticationService } from '../services/auth.service';
+
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private inj: Injector) { }
@@ -15,6 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
         const auth = this.inj.get(AuthenticationService);
         const token = auth.token;
         const localToken = localStorage.getItem('token') || 'test';
+
         request = request.clone({
             setHeaders: {
                 Authorization: token ? token : localToken,
@@ -22,4 +26,10 @@ export class TokenInterceptor implements HttpInterceptor {
         });
         return next.handle(request);
     }
+}
+
+export const tokenInterceptor = {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true,
 }
