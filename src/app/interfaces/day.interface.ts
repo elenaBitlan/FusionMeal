@@ -1,7 +1,6 @@
 export interface IDay {
-
-    _id: string,
-    date: string,
+    _id: string;
+    date: string;
     order: {
         first: {
             value: number,
@@ -12,10 +11,9 @@ export interface IDay {
             option: string,
         },
         total: number,
-    },
+    };
     options: {
         first: [],
         second: [],
-
-    },
+    };
 }

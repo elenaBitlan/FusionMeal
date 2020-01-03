@@ -1,14 +1,9 @@
-.formBox {
-  min-height: 50vh;
-  width: 100vw;
-
-  &__form {
-    display: inline;
-  }
-  &__container {
-    flex-direction: column;
-  }
-}
 .carouselBox {
   height: 100vh;
+}
+.carousel{
+
+ &__card{
+ width: 18rem;
+ } 
 }

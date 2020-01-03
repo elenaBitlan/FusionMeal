@@ -24,8 +24,7 @@ export class ApiInterceptor implements HttpInterceptor {
       url: `${environment.apiUrl}/${request.url}`,
     });
 
-    return next
-      .handle(duplicatedRequest);
+    return next.handle(duplicatedRequest);
   }
 }
 

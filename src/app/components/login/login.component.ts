@@ -15,10 +15,9 @@ export class LoginComponent {
   ) { }
 
   public login(loginForm) {
-    this.authService.login(loginForm.value.email, loginForm.value.password).subscribe((val) => {
-      this.authService.token = val.token;
-      localStorage.setItem('token', val.token);
-      this.router.navigate(['/home']);
-    });
+    this.authService.login(loginForm.value.email, loginForm.value.password)
+      .subscribe((user) => {
+        this.router.navigate(['/home']);
+      });
   }
 }

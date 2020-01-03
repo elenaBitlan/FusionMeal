@@ -4,7 +4,6 @@ import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +29,6 @@ import { AuthenticationService } from './services/auth.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     CarouselModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
@@ -42,7 +40,7 @@ import { AuthenticationService } from './services/auth.service';
     apiProvider,
     OrderService,
     DatePipe,
-    tokenInterceptor
+    tokenInterceptor,
   ],
   bootstrap: [AppComponent],
 })

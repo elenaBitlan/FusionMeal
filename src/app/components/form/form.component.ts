@@ -1,16 +1,16 @@
 import {
-  Component,   //order imports
+  Component,
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
   HostListener,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
+
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
 import { OrderService } from '../../services/order.service';
 import { IDay } from 'app/interfaces/day.interface';
-import { IOrder } from 'app/interfaces/order.interface';
+import { Order } from 'app/models/order.model';
 
 @Component({
   selector: 'app-form',
@@ -19,17 +19,17 @@ import { IOrder } from 'app/interfaces/order.interface';
 })
 export class FormComponent implements OnInit, AfterViewInit {
   public day: IDay;
-  public currentWeek: IDay[]; //this?
+  public currentWeek: IDay[];
   public arrayForm: FormArray;
   public myGroup: FormGroup;
 
   public itemsPerSlide;
   public singleSlideOffset = false;
-  public noWrap = !false;
+  public noWrap = false;
   public width: any;
   public showCarusel = true;
   public showIndicators = false;
-  public daysArray: string[] = [
+  public weekDays: string[] = [
     'Monday',
     'Tuesday',
     'Wednesday ',
@@ -39,53 +39,8 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   constructor(
     private orderService: OrderService,
-    public datepipe: DatePipe,
     private cdr: ChangeDetectorRef,
   ) { }
-
-  public food(i) {
-    console.log(this.arrayForm.controls[i]);
-    const first = this.arrayForm.controls[i].value.first;
-    const second = this.arrayForm.controls[i].value.second;
-    const date = this.arrayForm.controls[i].value.date;
-    const id = this.arrayForm.controls[i].value.id;
-    const formatedDate = new Date(date).getTime();
-    const today = new Date().getTime();
-    const firstPrice = 25;
-    const secondPrice = 25;
-    const total = firstPrice * first + secondPrice * second;
-
-    if (formatedDate < today) {
-      alert(`You can't go to the past`);
-      return;
-    }
-
-    if (first === 0 && second === 0) {
-      alert(`You haven't order anything`);
-      return;
-    }
-    const order: IOrder = {
-      _id: id,
-      date: date,
-      order: {
-        first: {
-          value: first,
-          option: '',
-        },
-        second: {
-          value: second,
-          option: '',
-        },
-      },
-      options: {
-        first: [],
-        second: [],
-      },
-    };
-    return this.orderService
-      .postOrder(order)
-      .subscribe();
-  }
 
   public ngOnInit(): void {
     this.orderService.getCurrentWeek().subscribe((days: IDay[]) => {
@@ -108,6 +63,10 @@ export class FormComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public ngAfterViewInit() {
+    this.onResize(window);
+  }
+
   @HostListener('window:resize', ['$event.target'])
   public onResize(target) {
     this.width = target.innerWidth;
@@ -122,10 +81,37 @@ export class FormComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.showCarusel = true;
       this.cdr.detectChanges();
-    }, 0);
+    });
   }
 
-  public ngAfterViewInit() {
-    this.onResize(window);
+  public food(index) {
+    const {
+      id,
+      date,
+      first,
+      second,
+    } = this.arrayForm.controls[index].value;
+    const formatedDate = new Date(date).getTime();
+    const now = new Date().getTime();
+    const firstPrice = 10;
+    const secondPrice = 30;
+    const total = firstPrice * first + secondPrice * second;
+
+    /* if (formatedDate < now) {
+       alert(`Too late`);
+       return;
+     }*/
+
+    if (first === 0 && second === 0) {
+      alert(`You haven't order anything`);
+      return;
+    }
+    alert('Succes');
+    const order = new Order(id, date, first, second);
+    console.log(order);
+    return this.orderService
+      .postOrder(order)
+      .subscribe();
   }
+
 }
