@@ -16,7 +16,7 @@ export class LoginComponent {
 
   public login(loginForm) {
     this.authService.login(loginForm.value.email, loginForm.value.password)
-      .subscribe((user) => {
+      .subscribe(() => {
         this.router.navigate(['/home']);
       });
   }
