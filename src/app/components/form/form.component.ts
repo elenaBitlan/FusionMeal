@@ -8,6 +8,8 @@ import {
 
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { OrderService } from '../../services/order.service';
 import { IDay } from 'app/interfaces/day.interface';
 import { Order } from 'app/models/order.model';
@@ -40,6 +42,7 @@ export class FormComponent implements OnInit, AfterViewInit {
   constructor(
     private orderService: OrderService,
     private cdr: ChangeDetectorRef,
+    private toastr: ToastrService,
   ) { }
 
   public ngOnInit(): void {
@@ -97,18 +100,19 @@ export class FormComponent implements OnInit, AfterViewInit {
     const secondPrice = 30;
     const total = firstPrice * first + secondPrice * second;
 
-    /* if (formatedDate < now) {
-       alert(`Too late`);
-       return;
-     }*/
-
-    if (first === 0 && second === 0) {
-      alert(`You haven't order anything`);
+    if (formatedDate < now) {
+      this.toastr.error(`Too late`);
       return;
     }
-    alert('Succes');
+
+    if (first === 0 && second === 0) {
+      this.toastr.warning(`You haven't order anything`);
+      return;
+    }
+
+    this.toastr.success(`Your order was placed,price is ${total}`);
+
     const order = new Order(id, date, first, second);
-    console.log(order);
     return this.orderService
       .postOrder(order)
       .subscribe();

@@ -1,6 +1,5 @@
 export class Order {
-    public _id = '';
-    public date = '';
+
     public order = {
         first: {
             value: 0,
@@ -15,9 +14,7 @@ export class Order {
         first: [],
         second: [],
     };
-    constructor(id, date, first, second) {
-        this._id = id;
-        this.date = date;
+    constructor(private _id: string | null = null, private date: string = '', first: number, second: number) {
         this.order.first.value = first;
         this.order.second.value = second;
     }

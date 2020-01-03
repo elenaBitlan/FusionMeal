@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
 
 import { IUser } from '../interfaces/user.interface';
 
 @Injectable()
 export class AuthenticationService {
   private static STORAGE_KEY = 'currentUser';
+
   public currentUser: Observable<IUser>;
   public currentUserSubject: BehaviorSubject<IUser>;
   public token = null;
@@ -31,7 +32,7 @@ export class AuthenticationService {
 
     return this.http.post<any>(`api/auth/login-mobile`, { username, password, token })
       .pipe(
-        map((user) => {
+        tap((user) => {
           localStorage.setItem(AuthenticationService.STORAGE_KEY, JSON.stringify(user));
           localStorage.setItem('token', user.token);
           this.currentUserSubject.next(user);

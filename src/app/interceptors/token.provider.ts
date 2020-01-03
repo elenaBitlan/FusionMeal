@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     HttpRequest,
     HttpHandler,
@@ -12,27 +12,25 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationService } from '../services/auth.service';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenProvider implements HttpInterceptor {
     constructor(
-        private injector: Injector,
+        private authenticationService: AuthenticationService,
     ) { }
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const auth = this.injector.get(AuthenticationService);
-        const token = auth.token;
+        const auth = this.authenticationService;
         const localToken = localStorage.getItem('token') || 'test';
 
         request = request.clone({
             setHeaders: {
-                Authorization: token || localToken,
+                Authorization: auth.token || localToken,
             },
         });
-        return next
-            .handle(request);
+        return next.handle(request);
     }
 }
 
-export const tokenInterceptor = {
+export const tokenProvider = {
     provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
+    useClass: TokenProvider,
     multi: true,
 };
