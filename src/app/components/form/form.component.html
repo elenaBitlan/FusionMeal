@@ -3,7 +3,7 @@
     <carousel [itemsPerSlide]="itemsPerSlide" [showIndicators]="showIndicators" [singleSlideOffset]="singleSlideOffset"
       [noWrap]="noWrap" [interval]="false" [startFromIndex]="0" [formGroup]="myGroup">
       <div formArrayName="formArray" *ngFor="let dayForm of arrayForm.controls; let index = index">
-        <slide class=" m-1 carousel__slide">
+        <slide class="m-1">
           <div [formGroupName]="index">
             <div class="card border-light mb-3 carousel__card">
               <img src="assets/300.png" class="card-img-top p-2" alt="...">

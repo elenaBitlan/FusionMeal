@@ -29,10 +29,9 @@ export class AuthenticationService {
 
   public login(username: string, password: string) {
     const token = null;
-
     return this.http.post<IUser>(`api/auth/login-mobile`, { username, password, token })
       .pipe(
-        tap((user) => {
+        tap((user: IUser) => {
           localStorage.setItem(AuthenticationService.STORAGE_KEY, JSON.stringify(user));
           localStorage.setItem('token', user.token);
           this.currentUserSubject.next(user);

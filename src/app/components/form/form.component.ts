@@ -5,15 +5,14 @@ import {
   AfterViewInit,
   HostListener,
 } from '@angular/core';
-
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { OrderService } from '../../services/order.service';
+
 import { IDay } from 'app/interfaces/day.interface';
 import { Order } from 'app/models/order.model';
-import { AuthenticationService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-form',
@@ -31,6 +30,7 @@ export class FormComponent implements OnInit, AfterViewInit {
   public noWrap = false;
   public width: number;
   public showCarusel = true;
+  public showIndicators = true;
   public weekDays: string[] = [
     'Monday',
     'Tuesday',
@@ -46,7 +46,6 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   constructor(
     private orderService: OrderService,
-    private authService: AuthenticationService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
   ) { }

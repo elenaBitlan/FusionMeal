@@ -14,7 +14,12 @@ export class Order {
         first: [],
         second: [],
     };
-    constructor(private _id: string | null = null, private date: string = '', first: number, second: number) {
+    constructor(
+        private _id: string | null = null,
+        private date: string = '',
+        first: number,
+        second: number,
+    ) {
         this.order.first.value = first;
         this.order.second.value = second;
     }
