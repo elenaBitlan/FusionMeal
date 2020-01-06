@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { tap } from 'rxjs/internal/operators/tap';
 import { Observable } from 'rxjs/internal/Observable';
 
 import { IDay } from '../interfaces/day.interface';
 import { Order } from '../models/order.model';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 
 @Injectable()
 export class OrderService {
@@ -15,12 +15,12 @@ export class OrderService {
     private http: HttpClient,
   ) { }
 
-  public getCurrentWeek(): Observable<Object> {
-    return this.http.get(`api/order/get-week`)
-      .pipe(
-        tap((results) => {
-          return this.currentWeek = results as IDay[];
-        }, (error) => console.error(error)));
+  public getCurrentWeeks(): Observable<Object> {
+    const currentWeek = this.http.get(`api/order/get-week`);
+    const nextWeek = this.http.get(`api/order/get-next-week`);
+
+    return forkJoin([currentWeek, nextWeek]);
+
   }
 
   public postOrder(order: Order) {

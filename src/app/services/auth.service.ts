@@ -19,12 +19,12 @@ export class AuthenticationService {
     public http: HttpClient,
   ) {
     this.currentUserSubject = new BehaviorSubject<IUser>(
-      JSON.parse(localStorage.getItem(AuthenticationService.STORAGE_KEY)));
-    this.currentUser = this.currentUserSubject.asObservable();
+      JSON.parse(localStorage.getItem(AuthenticationService.STORAGE_KEY)),
+    );
   }
 
   public isAuth() {
-    return this.currentUserSubject;
+    return this.currentUserSubject.value;
   }
 
   public login(username: string, password: string) {
@@ -36,7 +36,6 @@ export class AuthenticationService {
           localStorage.setItem(AuthenticationService.STORAGE_KEY, JSON.stringify(user));
           localStorage.setItem('token', user.token);
           this.currentUserSubject.next(user);
-          return user;
         }));
   }
 }

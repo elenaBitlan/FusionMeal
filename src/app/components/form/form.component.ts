@@ -31,8 +31,12 @@ export class FormComponent implements OnInit, AfterViewInit {
   public noWrap = false;
   public width: number;
   public showCarusel = true;
-  public showIndicators = false;
   public weekDays: string[] = [
+    'Monday',
+    'Tuesday',
+    'Wednesday ',
+    'Thursday',
+    'Friday',
     'Monday',
     'Tuesday',
     'Wednesday ',
@@ -48,11 +52,11 @@ export class FormComponent implements OnInit, AfterViewInit {
   ) { }
 
   public ngOnInit(): void {
-    this.orderService.getCurrentWeek().subscribe((days: IDay[]) => {
-      this.currentWeek = days;
+    this.orderService.getCurrentWeeks().subscribe((days) => {
+      const weeks = [...days[0], ...days[1]];
 
       this.arrayForm = new FormArray(
-        days.map((day, index) => {
+        weeks.map((day, index) => {
           return new FormGroup({
             first: new FormControl(day.order.first.value),
             second: new FormControl(day.order.second.value),
