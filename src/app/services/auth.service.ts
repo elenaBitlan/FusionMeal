@@ -30,7 +30,7 @@ export class AuthenticationService {
   public login(username: string, password: string) {
     const token = null;
 
-    return this.http.post<any>(`api/auth/login-mobile`, { username, password, token })
+    return this.http.post<IUser>(`api/auth/login-mobile`, { username, password, token })
       .pipe(
         tap((user) => {
           localStorage.setItem(AuthenticationService.STORAGE_KEY, JSON.stringify(user));
@@ -38,10 +38,5 @@ export class AuthenticationService {
           this.currentUserSubject.next(user);
           return user;
         }));
-  }
-
-  public logout() {
-    localStorage.removeItem(AuthenticationService.STORAGE_KEY);
-    this.currentUserSubject.next(null);
   }
 }

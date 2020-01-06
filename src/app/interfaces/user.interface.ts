@@ -7,4 +7,5 @@ export interface IUser {
   orders: string[];
   active: boolean;
   admin: boolean;
+  token?: string;
 }

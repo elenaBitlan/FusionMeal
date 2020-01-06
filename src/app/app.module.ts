@@ -15,7 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormComponent } from './components/form/form.component';
 
 import { apiProvider } from './interceptors/api.interceptor';
-import { tokenProvider } from './interceptors/token.provider';
+import { tokenProvider } from './interceptors/token.interceptor';
 
 import { AuthGuard } from './guards/auth.guard';
 

@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class ApiInterceptor implements HttpInterceptor {
   constructor() { }
 
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(request: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
     if (request.url.startsWith('http')) {
       return next.handle(request);
     }

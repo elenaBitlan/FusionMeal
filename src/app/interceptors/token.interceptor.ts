@@ -16,7 +16,7 @@ export class TokenProvider implements HttpInterceptor {
     constructor(
         private authenticationService: AuthenticationService,
     ) { }
-    public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    public intercept(request: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
         const auth = this.authenticationService;
         const localToken = localStorage.getItem('token') || 'test';
 

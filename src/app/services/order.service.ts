@@ -15,7 +15,7 @@ export class OrderService {
     private http: HttpClient,
   ) { }
 
-  public getCurrentWeek(): Observable<any> {
+  public getCurrentWeek(): Observable<Object> {
     return this.http.get(`api/order/get-week`)
       .pipe(
         tap((results) => {
@@ -23,7 +23,7 @@ export class OrderService {
         }, (error) => console.error(error)));
   }
 
-  public postOrder(order: Order): any {
+  public postOrder(order: Order) {
     return this.http.post<Order>(`api/order`, order);
   }
 }

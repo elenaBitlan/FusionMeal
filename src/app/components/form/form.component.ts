@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../../services/order.service';
 import { IDay } from 'app/interfaces/day.interface';
 import { Order } from 'app/models/order.model';
+import { AuthenticationService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-form',
@@ -28,7 +29,7 @@ export class FormComponent implements OnInit, AfterViewInit {
   public itemsPerSlide;
   public singleSlideOffset = false;
   public noWrap = false;
-  public width: any;
+  public width: number;
   public showCarusel = true;
   public showIndicators = false;
   public weekDays: string[] = [
@@ -41,6 +42,7 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   constructor(
     private orderService: OrderService,
+    private authService: AuthenticationService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
   ) { }
@@ -104,18 +106,15 @@ export class FormComponent implements OnInit, AfterViewInit {
       this.toastr.error(`Too late`);
       return;
     }
-
     if (first === 0 && second === 0) {
-      this.toastr.warning(`You haven't order anything`);
-      return;
+      this.toastr.info(`Your order was removed`);
+    } else {
+      this.toastr.success(`Your order was placed,price is ${total}`);
     }
-
-    this.toastr.success(`Your order was placed,price is ${total}`);
 
     const order = new Order(id, date, first, second);
     return this.orderService
       .postOrder(order)
       .subscribe();
   }
-
 }
