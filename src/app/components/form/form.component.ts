@@ -21,7 +21,6 @@ import { Order } from 'app/models/order.model';
 })
 export class FormComponent implements OnInit, AfterViewInit {
   public day: IDay;
-  public currentWeek: IDay[];
   public arrayForm: FormArray;
   public myGroup: FormGroup;
 
@@ -37,7 +36,14 @@ export class FormComponent implements OnInit, AfterViewInit {
     'Wednesday ',
     'Thursday',
     'Friday',
+    'Monday',
+    'Tuesday',
+    'Wednesday ',
+    'Thursday',
+    'Friday',
   ];
+  public foodOptionFirst = [];
+  public foodOptionSecond = [];
 
   constructor(
     private orderService: OrderService,
@@ -46,24 +52,31 @@ export class FormComponent implements OnInit, AfterViewInit {
   ) { }
 
   public ngOnInit(): void {
-    this.orderService.getCurrentWeek().subscribe((days: IDay[]) => {
-      this.currentWeek = days;
+    this.orderService.getCurrentWeek().subscribe((days) => {
+      const weeks = [...days[0], ...days[1]];
+      this.foodOptionFirst = weeks[0].options.first;
+      this.foodOptionSecond = weeks[0].options.second;
 
       this.arrayForm = new FormArray(
-        days.map((day, index) => {
+        weeks.map((day, index) => {
           return new FormGroup({
             first: new FormControl(day.order.first.value),
+            firstOption: new FormControl(day.order.first.options),
             second: new FormControl(day.order.second.value),
+            secondOption: new FormControl(day.order.second.options),
             date: new FormControl(day.date),
             id: new FormControl(day._id),
             dayOfWeek: new FormControl(index),
+
           });
         }),
       );
       this.myGroup = new FormGroup({
         formArray: this.arrayForm,
+
       });
     });
+
   }
 
   public ngAfterViewInit() {
@@ -93,6 +106,9 @@ export class FormComponent implements OnInit, AfterViewInit {
       date,
       first,
       second,
+      firstOption,
+      secondOption,
+
     } = this.arrayForm.controls[index].value;
     const formatedDate = new Date(date).getTime();
     const now = new Date().getTime();
@@ -112,7 +128,7 @@ export class FormComponent implements OnInit, AfterViewInit {
 
     this.toastr.success(`Your order was placed,price is ${total}`);
 
-    const order = new Order(id, date, first, second);
+    const order = new Order(id, date, first, second, firstOption, secondOption);
     return this.orderService
       .postOrder(order)
       .subscribe();
