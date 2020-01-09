@@ -20,18 +20,10 @@ import { Order } from 'app/models/order.model';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, AfterViewInit {
-  public day: IDay;
-  public currentWeek: IDay[];
+
   public arrayForm: FormArray;
   public myGroup: FormGroup;
   public weeks = [];
-
-  public itemsPerSlide;
-  public singleSlideOffset = false;
-  public noWrap = false;
-  public width: number;
-  public showCarusel = true;
-  public showIndicators = false;
   public weekDays: string[] = [
     'Monday',
     'Tuesday',
@@ -44,6 +36,14 @@ export class FormComponent implements OnInit, AfterViewInit {
     'Thursday',
     'Friday',
   ];
+
+  public itemsPerSlide;
+  public singleSlideOffset = false;
+  public noWrap = false;
+  public width: number;
+  public showCarusel = true;
+  public showIndicators = false;
+
   public options = [];
 
   constructor(
