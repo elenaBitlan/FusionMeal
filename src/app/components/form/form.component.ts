@@ -43,6 +43,7 @@ export class FormComponent implements OnInit, AfterViewInit {
     'Thursday',
     'Friday',
   ];
+  public options = [];
 
   constructor(
     private orderService: OrderService,
@@ -53,6 +54,13 @@ export class FormComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.orderService.getCurrentWeeks().subscribe((days) => {
       const weeks = [...days[0], ...days[1]];
+
+      weeks.map((day) => {
+        this.options.push(day.options);
+        return this.options;
+      });
+
+      console.log(this.options);
 
       this.arrayForm = new FormArray(
         weeks.map((day, index) => {
