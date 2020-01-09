@@ -7,20 +7,32 @@
           <div [formGroupName]="index">
             <div class="card border-light mb-3 carousel__card">
               <img src="assets/300.png" class="card-img-top p-2" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ weekDays[index] }}</h5>
-                <p class="card-text text-success">
-                  {{ dayForm.value.date | date }}
-                </p>
-                <div class="form-group d-flex justify-content-between m-2 ">
-                  <label class="mx-2">First</label>
+              <div class="card-body p-2">
+                <h5 class="card-title mx-2">{{ weekDays[index] }}</h5>
+                <div class="d-flex justify-content-between ">
+                  <p class="card-text text-success mx-2">
+                    {{weeks[index].date | date }}
+                  </p>
+                  <H4 class="card-text text-secondary mx -2">{{weeks[index].order.total}} MDL</H4>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                  <label class="m-2">First</label>
                   <input formControlName="first" class="form-control col-3 rounded-pill" type="number">
+                  <select *ngIf="weeks[index].options.first.length!=0" class="form-control col-6"
+                    formControlName="firstOption">
+                    <option *ngFor="let option of weeks[index].options.first">{{option}}</option>
+                  </select>
                 </div>
 
-                <div class="form-group d-flex justify-content-between m-2 ">
-                  <label class="mx-2">Second</label>
+                <div class="form-group d-flex justify-content-between">
+                  <label class="my-2 mx-1">Second</label>
                   <input class="form-control col-3 rounded-pill" type="number" formControlName="second">
+                  <select *ngIf="weeks[index].options.second.length!=0" class=" form-control col-6"
+                    formControlName="secondOption">
+                    <option *ngFor="let option of weeks[index].options.second">{{option}}</option>
+                  </select>
                 </div>
+
                 <button type="button" class="btn btn-lg btn-success rounded-pill m-3" (click)="food(index)">
                   Submit
                 </button>

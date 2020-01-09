@@ -24,13 +24,14 @@ export class FormComponent implements OnInit, AfterViewInit {
   public currentWeek: IDay[];
   public arrayForm: FormArray;
   public myGroup: FormGroup;
+  public weeks = [];
 
   public itemsPerSlide;
   public singleSlideOffset = false;
   public noWrap = false;
   public width: number;
   public showCarusel = true;
-  public showIndicators = true;
+  public showIndicators = false;
   public weekDays: string[] = [
     'Monday',
     'Tuesday',
@@ -53,20 +54,15 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.orderService.getCurrentWeeks().subscribe((days) => {
-      const weeks = [...days[0], ...days[1]];
-
-      weeks.map((day) => {
-        this.options.push(day.options);
-        return this.options;
-      });
-
-      console.log(this.options);
+      this.weeks = [...days[0], ...days[1]];
 
       this.arrayForm = new FormArray(
-        weeks.map((day, index) => {
+        this.weeks.map((day, index) => {
           return new FormGroup({
             first: new FormControl(day.order.first.value),
+            firstOption: new FormControl(day.order.first.options),
             second: new FormControl(day.order.second.value),
+            secondOption: new FormControl(day.order.second.options),
             date: new FormControl(day.date),
             id: new FormControl(day._id),
             dayOfWeek: new FormControl(index),
@@ -106,12 +102,14 @@ export class FormComponent implements OnInit, AfterViewInit {
       date,
       first,
       second,
+      firstOption,
+      secondOption,
     } = this.arrayForm.controls[index].value;
     const formatedDate = new Date(date).getTime();
     const now = new Date().getTime();
     const firstPrice = 10;
     const secondPrice = 30;
-    const total = firstPrice * first + secondPrice * second;
+    this.weeks[index].order.total = + firstPrice * first + secondPrice * second;
 
     if (formatedDate < now) {
       this.toastr.error(`Too late`);
@@ -120,10 +118,10 @@ export class FormComponent implements OnInit, AfterViewInit {
     if (first === 0 && second === 0) {
       this.toastr.info(`Your order was removed`);
     } else {
-      this.toastr.success(`Your order was placed,price is ${total}`);
+      this.toastr.success(`Your order was placed,price is ${this.weeks[index].order.total}`);
     }
 
-    const order = new Order(id, date, first, second);
+    const order = new Order(id, date, first, firstOption, second, secondOption);
     return this.orderService
       .postOrder(order)
       .subscribe();

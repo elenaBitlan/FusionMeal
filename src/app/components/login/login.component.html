@@ -1,14 +1,35 @@
 <div class="container d-flex justify-content-center align-items-center box text-white font-weight-normal ">
   <form class="box__form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
     <div class="form-group ">
-      <label for="InputEmail">Email address</label>
-      <input name="email" type="email" ngModel required pattern="/.*@fusionworks.md$/"
-        class="form-control form-control-lg rounded-pill" id="InputEmail">
+      <label for="Inputname">name address</label>
+      <input name="name" #name="ngModel" type="name" ngModel required minlength="2"
+        class="form-control form-control-lg rounded-pill" id="Inputname">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Name must be at least 2 characters long.
+        </div>
+
+      </div>
     </div>
     <div class="form-group">
       <label for="InputPassword1">Password</label>
-      <input name="password" type="password" ngModel class="form-control form-control-lg rounded-pill"
+      <input name="password" type="password" ngModel #password="ngModel" required
+        pattern="^(?=.*\d)(?=.*[a-z])(?!.*\s).*$" minlength="6" class="form-control form-control-lg rounded-pill"
         id="InputPassword1">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors.minlength">
+          Password must be at least 6 characters long.
+        </div>
+        <div *ngIf="password.errors.pattern">
+          Password is too weak.
+        </div>
+      </div>
     </div>
     <button type="submit" class="btn btn-lg btn-block rounded-pill box__btn">
       Submit
